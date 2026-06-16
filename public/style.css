@@ -1,0 +1,119 @@
+:root {
+    --primary-color: #2c3e50;
+    --secondary-color: #3498db;
+    --accent-color: #e67e22;
+    --bg-color: #f4f6f7;
+    --text-color: #333;
+    --border-radius: 8px;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+}
+
+.auth-container {
+    max-width: 450px;
+    margin: 4% auto;
+    background: white;
+    padding: 2.5rem;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.radio-group {
+    display: flex;
+    gap: 15px;
+    margin-top: 0.5rem;
+}
+
+.app-container {
+    display: none;
+    max-width: 1100px;
+    margin: 2rem auto;
+    background: white;
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 3px solid var(--primary-color);
+    padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.tabs {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 1.5rem;
+    background: #eee;
+    padding: 5px;
+    border-radius: var(--border-radius);
+    flex-wrap: wrap;
+}
+
+.tab-btn {
+    padding: 0.8rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    color: #666;
+    border-radius: var(--border-radius);
+}
+
+.tab-btn.active {
+    background: white;
+    color: var(--primary-color);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+.form-group { margin-bottom: 1.2rem; }
+label { display: block; margin-bottom: 0.4rem; font-weight: 600; }
+input, select, textarea { width: 100%; padding: 0.75rem; border: 1px solid #ccc; border-radius: var(--border-radius); box-sizing: border-box; }
+
+button { background-color: var(--secondary-color); color: white; border: none; padding: 0.75rem 1.5rem; cursor: pointer; border-radius: var(--border-radius); font-weight: bold; }
+button:hover { background-color: #2980b9; }
+
+/* Estilos do Mural */
+.mural-item {
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    background: #fff;
+}
+.mural-item h3 { margin-top: 0; color: var(--primary-color); }
+.mural-media {
+    max-width: 80%;
+    height: auto;
+    display: block;
+    margin: 15px auto;
+    border-radius: 4px;
+}
+.badge {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    font-size: 0.8rem;
+    border-radius: 12px;
+    font-weight: bold;
+    color: white;
+}
+.badge-aviso { background-color: #e74c3c; }
+.badge-propaganda { background-color: #2ecc71; }
+
+/* Tabela de Histórico */
+table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+th, td { padding: 0.75rem; border: 1px solid #ddd; text-align: left; }
+th { background-color: #f2f2f2; }
+.atrasado-row { background-color: #f9ebea; color: #c0392b; }

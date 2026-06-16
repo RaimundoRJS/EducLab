@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>edulab - Sistema Integrado</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+
+<div id="authScreen">
+    <div class="auth-container" id="loginBox">
+        <h2>Login - edulab</h2>
+        <div class="form-group"><label>Matrícula</label><input type="text" id="loginMatricula"></div>
+        <div class="form-group"><label>Senha</label><input type="password" id="loginSenha"></div>
+        <button style="width:100%;" onclick="executarLogin()">Entrar</button>
+        <p style="text-align:center; cursor:pointer; color:var(--secondary-color);" onclick="alternarAuth(false)">Criar Conta</p>
+    </div>
+
+    <div class="auth-container" id="cadastroBox" style="display:none;">
+        <h2>Cadastro - edulab</h2>
+        <div class="form-group"><label>Nome Completo</label><input type="text" id="cadNome"></div>
+        <div class="form-group"><label>CPF</label><input type="text" id="cadCpf"></div>
+        <div class="form-group"><label>Data de Nascimento</label><input type="date" id="cadNascimento"></div>
+
+        <div class="form-group">
+            <label>Função na Plataforma</label>
+            <div class="radio-group">
+                <label><input type="radio" name="cadCargo" value="Professor" checked> Professor</label>
+                <label><input type="radio" name="cadCargo" value="Gestor"> Gestor</label>
+            </div>
+        </div>
+        <div class="form-group"><label>Senha</label><input type="password" id="cadSenha"></div>
+        <button style="width:100%;" onclick="executarCadastro()">Registrar</button>
+        <p style="text-align:center; cursor:pointer; color:var(--secondary-color);" onclick="alternarAuth(true)">Voltar ao Login</p>
+    </div>
+</div>
+
+<div class="app-container" id="appScreen">
+    <header>
+        <h1>edulab</h1>
+        <div id="userBadge">Carregando...</div>
+    </header>
+
+    <div class="tabs" id="mainTabs">
+        <button class="tab-btn active" onclick="mudarAba('homeTab', this)">Início / Mural</button>
+        <button class="tab-btn" id="abaGerenciarMural" onclick="mudarAba('gerenciaMuralTab', this)">Gerenciar Mural</button>
+        <button class="tab-btn" onclick="mudarAba('labsTab', this)">Agendamento de Labs</button>
+        <button class="tab-btn" onclick="mudarAba('equipsTab', this)">Reserva de Equipamentos</button>
+        <button class="tab-btn" id="abaChamada" onclick="mudarAba('chamadaTab', this)">Chamada QR Code</button>
+        <button class="tab-btn" onclick="mudarAba('historicoTab', this)">Meus Agendamentos / Devoluções</button>
+    </div>
+
+    <div id="homeTab" class="tab-content active">
+        <h2>Mural da Instituição</h2>
+        <div id="muralFeed">Nenhum aviso ou propaganda pendente.</div>
+    </div>
+
+    <div id="gerenciaMuralTab" class="tab-content">
+        <h2>Novo Post no Mural</h2>
+        <div class="form-group">
+            <label>Tipo de Postagem</label>
+            <select id="muralTipo" onchange="ajustarCamposMural()">
+                <option value="aviso">Aviso (Exposto por 24h)</option>
+                <option value="propaganda">Propaganda (Período Customizado)</option>
+            </select>
+        </div>
+        <div class="form-group" id="campoTempoPropaganda" style="display:none;">
+            <label>Tempo de Exposição (em horas)</label>
+            <input type="number" id="muralHoras" value="48" min="1">
+        </div>
+        <div class="form-group"><label>Título</label><input type="text" id="muralTitulo"></div>
+        <div class="form-group"><label>Texto / Pronunciamento</label><textarea id="muralConteudo" rows="3"></textarea></div>
+        <div class="form-group">
+            <label>Tipo de Mídia</label>
+            <select id="muralMidiaTipo">
+                <option value="texto">Somente Texto</option>
+                <option value="imagem">Imagem</option>
+                <option value="video">Vídeo</option>
+            </select>
+        </div>
+        <div class="form-group"><label>URL da Mídia (Simulação de arquivo)</label><input type="text" id="muralUrl" placeholder="Ex: https://site.com/imagem.png"></div>
+        <button onclick="postarNoMural()">Publicar no Mural</button>
+    </div>
+
+    <div id="labsTab" class="tab-content">
+        <h2>Agendamento de Laboratórios</h2>
+        <div class="form-group">
+            <label>Laboratório</label>
+            <select id="labSelect">
+                <option value="Lab Matemática e Física">Lab de Matemática e Física</option>
+                <option value="Lab Biologia e Química">Lab de Biologia e Química</option>
+                <option value="Lab Eletroeletrônica e Eletrotécnica">Lab de Eletroeletrônica e Eletrotécnica</option>
+                <option value="Lab Informática 01 (20 PCs)">Lab de Informática 01 (20 PCs)</option>
+                <option value="Lab Informática 02 (20 PCs)">Lab de Informática 02 (20 PCs)</option>
+            </select>
+        </div>
+        <div class="form-group"><label>Data</label><input type="date" id="labData"></div>
+        <div class="form-group"><label>Hora de Início</label><input type="time" id="labHora"></div>
+        <div class="form-group">
+            <label>Tempo de Uso Estipulado (Obrigatório)</label>
+            <select id="labDuracao">
+                <option value="1">1 Hora</option>
+                <option value="2">2 Horas</option>
+                <option value="4">4 Horas</option>
+            </select>
+        </div>
+        <button id="btnAgendarLab" onclick="salvarLab()">Agendar Local</button>
+    </div>
+
+    <div id="equipsTab" class="tab-content">
+        <h2>Reserva de Equipamentos</h2>
+        <div class="form-group">
+            <label>Item</label>
+            <select id="equipSelect">
+                <option value="Kits de Robótica">Kits de Robótica</option>
+                <option value="Fones de Ouvido">Fones de Ouvido</option>
+                <option value="Bola de Vôlei">Bola de Vôlei</option>
+            </select>
+        </div>
+        <div class="form-group"><label>Quantidade</label><input type="number" id="equipQtd" value="1" min="1"></div>
+        <div class="form-group"><label>Data</label><input type="date" id="equipData"></div>
+        <div class="form-group"><label>Hora de Início</label><input type="time" id="equipHora"></div>
+        <div class="form-group">
+            <label>Tempo de Uso Estipulado (Obrigatório)</label>
+            <select id="equipDuracao">
+                <option value="1">1 Hora</option>
+                <option value="2">2 Horas</option>
+                <option value="6">6 Horas</option>
+            </select>
+        </div>
+        <button onclick="salvarEquip()">Reservar Equipamento</button>
+    </div>
+
+    <div id="chamadaTab" class="tab-content">
+        <h2>Módulo de Chamada (Restrito para Professores)</h2>
+        <div class="form-group"><label>Turma</label><input type="text" id="turmaNome"></div>
+        <div class="form-group"><label>Data</label><input type="date" id="turmaData"></div>
+        <button onclick="alert('QR Code Gerado! (Ação permitida para Professores)')">Gerar Chamada</button>
+    </div>
+
+    <div id="historicoTab" class="tab-content">
+        <h2>Meu Histórico de Uso</h2>
+        <p>Se as chaves ou equipamentos não forem marcados como devolvidos em até 24h, uma cobrança por e-mail será disparada.</p>
+        <table>
+            <thead>
+            <tr>
+                <th>Item / Local</th>
+                <th>Data Reservada</th>
+                <th>Status</th>
+                <th>Ação</th>
+            </tr>
+            </thead>
+            <tbody id="historicoCorpo"></tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>
