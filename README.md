@@ -1,4 +1,4 @@
-# edulab 🏫💻
+# Edulab 🏫💻
 
 O **edulab** é uma aplicação web Full-Stack desenvolvida como projeto prático para a disciplina de Gerência de Projetos no curso de Ciência da Computação. O sistema atua como um portal centralizado para instituições de ensino, facilitando o gerenciamento de espaços físicos, equipamentos multidisciplinares, comunicação institucional e controle de presença.
 
@@ -61,23 +61,27 @@ Conecte-se ao banco edulab_db e execute as queries de criação de tabelas (forn
 ### 3. Rodando a Aplicação
 Clone este repositório:
 
-Bash
+```
 git clone [https://github.com/RaimundoRJS/edulab.git](https://github.com/RaimundoRJS/edulab.git)
+```
 Acesse a pasta do projeto:
 
-Bash
+```
 cd edulab
+```
 Instale as dependências do Node.js:
 
-Bash
+```
 npm install express pg
+```
 Importante: Abra o arquivo server.js e atualize as credenciais do banco de dados na constante pool com o seu usuário e senha do Postgres local.
 
 Inicie o servidor:
 
-Bash
+```
 node server.js
-Abra o navegador e acesse: http://localhost:3000
+```
+Abra o navegador e acesse: `http://localhost:3000`
 
 🎓 Contexto Acadêmico
 Projeto desenvolvido para simular a criação, o planejamento e o ciclo de vida completo de um software educacional, aplicando conceitos de Gerência de Projetos (Escopo, Tempo, Custos e Integração).
